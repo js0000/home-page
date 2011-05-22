@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>john saylor</title>
+    <!-- everything jammed in head means no external dependencies -->
+    <!-- solarized colors from http://ethanschoonover.com/solarized/ -->
+    <style type="text/css">
+      body { 
+        background: #002b36; 
+	font-family: Georgia, Times, serif;
+	margin: 4%;
+      }
+      div#content { 
+        border-style: ridge;
+	background-color: #fdf6e3; 
+	color: #586e75;
+	padding: 16px;
+	width: 255px;
+      }
+      h1, h2 { font-family: Verdana, Helvetica, sans }
+      a:link, a:visited, a:active {
+        text-decoration: none;
+	color: #586e75;
+      }
+      a:hover { color: #93a1a1 }
+      /* ul#nav { list-style: outside; } */
+      div#about p {
+        font-size: xx-small;
+        font-family: "Lucida Console", geneva, lucidatypewriter, mono;
+      }
+      /* 4 changing highlights */
+      .yellow { color: #b58900 }
+      .orange { color: #cb4b16 }
+      .red { color: #d30102 }
+      .magenta { color: #d33682 }
+      .violet { color: #6c71c4 }
+      .blue { color: #268bd2 }
+      .cyan { color: #2aa198 }
+      .green { color: #859900 }
+      /* 4 about me */
+      .hide { display: none; }
+      .show { display: inline; }
+    </style>
+    <script type="text/javascript">
+    var js = {
+      colors : [
+        'yellow',
+	'orange',
+	'red',
+	'magenta',
+	'violet',
+	'blue',
+	'cyan',
+	'green'
+      ],
+
+      things : [
+        'teevees',
+	'unmanned drones',
+	'viagra tablets',
+	'howlin wolves',
+	'"fuck you"s',
+	'single payers',
+	'whispered prayers',
+	'sun ra arketras',
+	'rails installations',
+	'color palettes',
+	'human rights',
+	'curtains',
+	'jackets',
+	'nuclear families',
+	'iambic pentameter verses',
+	'yoga poses',
+	'descendants',
+	'back pains',
+	'chest pains',
+	'strokes',
+	'sex workers',
+	'advertising catch phrases',
+	'frank zappa stravinksy references',
+	"memories of louise gluck's _wild_iris_ poems",
+	'complicated family gatherings',
+	'sitcoms',
+        'random numbers',
+	'ipv6 configuration changes',
+	'meditation sessions',
+        'byegones',
+	"crap in stallman's beard",
+	'opening lies'
+      ],
+
+      set_heading_colors : function() {
+        // shuffle
+        js.fisherYates( js.colors );
+	
+	var i;
+	var idx;
+	var h1e = document.getElementsByTagName( 'h1' );
+	if( h1e.length > 0 ) {
+	  idx = Math.floor( Math.random() * js.colors.length );
+	  var cn = js.colors[idx];
+	  for( i = 0; i < h1e.length; i++ ) {
+	    h1e[i].className = cn;
+	  }
+	}
+        
+	var h2e = document.getElementsByTagName( 'h2' );
+	if( h2e.length > 0 ) {
+
+	  // choose next color
+	  if( idx ) {
+	    var tmp = idx;
+	    while( tmp == idx ) {
+	      tmp = Math.floor( Math.random() * js.colors.length );
+	    }    
+            idx = tmp;
+	  }
+	  else {
+	    idx = Math.floor( Math.random() * js.colors.length );
+	  }
+	  var cn = js.colors[idx];
+	  for( i = 0; i < h1e.length; i++ ) {
+	    h2e[i].className = cn;
+	  }
+	}
+      },
+      
+     make_phony_li : function() {
+       js.fisherYates( js.colors );
+       js.fisherYates( js.things );
+       if( Math.floor( Math.random() * 10 ) > 4 ) {
+	 phony_li_parts = [];
+	 var idx;
+	 if( Math.floor( Math.random() * 10 ) > 7 ) {
+	   idx = Math.floor( Math.random() * js.colors.length );
+	   phony_li_parts.push( js.colors[idx] );
+	 }
+	 
+	 idx = Math.floor( Math.random() * js.things.length );
+         phony_li_parts.push( js.things[idx] );
+
+         // add second thing to phony list item?
+         if( Math.floor( Math.random() * 10 ) > 7 ) {
+	   // which boolean verb to join with
+	   if( Math.floor( Math.random() * 10 ) > 4 ) {
+	     phony_li_parts.push( 'and' );
+	   }
+	   else {
+	     phony_li_parts.push( 'or' );
+	   }
+	   
+	   if( Math.floor( Math.random() * 10 ) > 7 ) {
+	     phony_li_parts.push( 'not' );
+           }
+	 
+	   if( Math.floor( Math.random() * 10 ) > 2  ) {
+	     idx = Math.floor( Math.random() * js.colors.length );
+	     phony_li_parts.push( js.colors[idx] );
+	   }
+	 
+	   idx = Math.floor( Math.random() * js.things.length );
+           phony_li_parts.push( js.things[idx] );
+	 }
+
+	 var nav = document.getElementById( 'nav' );
+	 var li = nav.getElementsByTagName( 'li' );
+	 var nav_items = [];
+	 var i;
+
+	 for( i = 0; i < li.length; i++ ) {
+	   nav_items.push( li[i] );
+	 }
+         
+	 var phony_li_text = phony_li_parts.join( ' ' );
+	 var phony_li = document.createElement( 'li' );
+	 phony_li.appendChild( document.createTextNode( phony_li_text ) );
+	 nav_items.push( phony_li )
+	 
+         // shuffle
+         js.fisherYates( nav_items );
+
+         // clear
+         while( nav.childNodes.length > 0 ) {
+	   try {
+	     nav.removeChild( nav.firstChild )
+	   }
+	   catch( e ) {
+	     //alert( 'name: ' + e.name + "\n" + 'message: ' + e.message );
+	   }
+	 }
+
+         // refill
+	 for( i = 0; i < nav_items.length; i++ ) {
+	   nav.appendChild( nav_items[i] );
+	 }
+
+       }
+       return true;
+     },
+
+     // from http://sedition.com/perl/javascript-fy.html
+     fisherYates : function( myArray ) {
+       var i = myArray.length;
+       if ( i == 0 ) return false;
+       while ( --i ) {
+         var j = Math.floor( Math.random() * ( i + 1 ) );
+         var tempi = myArray[i];
+         var tempj = myArray[j];
+         myArray[i] = tempj;
+         myArray[j] = tempi;
+       }
+     },
+
+     toggle_display_about : function() {
+        var about = document.getElementById( 'about' );
+        if( ( about ) && ( about.className ) ) {
+	  var cn = about.className;
+	  var hidden = /hide/i;
+	  if( hidden.test( cn ) ) {
+	    cn = about.className.replace( /hide/i, 'show' );
+	  }
+	  else {
+	    var shown = /show/i;
+	    if( shown.test( cn ) ) {
+	      cn = about.className.replace( /show/i, 'hide' );
+	    }
+	    else {
+	      if( cn.length > 0 ) {
+	        cn += ' hide'
+	      }
+	      else {
+	        cn = 'hide'
+	      }
+	    }
+	  }
+	}
+        about.className = cn;
+      },
+
+      init : function() {
+        js.set_heading_colors();
+	js.make_phony_li();
+      }
+
+    };
+    </script>
+  </head>
+
+  <body onload="js.init();">
+    <div id="content">
+      <h1>john saylor</h1>
+
+      <ul id="nav">
+        <li><a href="http://archive.org/details/l33t-t00nz">L33t T00nz</a> [netlabel releases]</li>
+	<li><a href="http://soundclound.com/js0000">uncollected audio</a></li>
+        <li><a href="http://twitter.com/js0000">tweets</a></li>
+        <li><a href="http://github.com/js0000">code</a></li>
+        <li><a href="#about" onclick="js.toggle_display_about();">about me</a></li>
+      </ul>
+
+      <div id="about" class="hide">
+        <a name="about"><h2>about me</h2></a>
+
+	<p>what to say about myself?</p>
+
+	<p>i could make a list, but that doesn't seem right. a list doesn't do
+	justice to the spaces in between items.</p>
+
+	<p>i studied music for many years, sometimes with famous-ish people,
+	sometimes not. i got married, had 3 kids and got divorced [ouch]. i've
+	been doing computer programming to make money for many years but
+	oddly enough&mdash; i feel my artistic instincts to be stronger than
+	ever.</p>
+
+        <p>that&apos;s probably enough &hellip;</p>
+      </div>
+    </div>
+
+  </body>
+</html>
